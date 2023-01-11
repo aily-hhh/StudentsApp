@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/listOfStudentsFragment"
+        android:title=""
+        android:icon="@drawable/ic_students"/>
+
+    <item android:id="@+id/listOfGroupsFragment"
+        android:title=""
+        android:icon="@drawable/ic_groups"/>
+
+</menu>

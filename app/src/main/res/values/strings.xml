@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Students App</string>
+    <string name="allStudents">All students</string>
+    <string name="allGroups">All groups</string>
+    <string name="firstName">First name</string>
+    <string name="lastName">Last name</string>
+    <string name="patronymic">Patronymic</string>
+    <string name="birthday">Birthday</string>
+    <string name="group">Group</string>
+    <string name="save">Save</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+    <string name="nameGroup">Name group</string>
+    <string name="countMembers">Count members</string>
+    <string name="faculty">Faculty</string>
+    <string name="error">Error</string>
+    <string name="searchStudents">filtering by group or last name</string>
+    <string name="selectedItem">Selected item</string>
+</resources>

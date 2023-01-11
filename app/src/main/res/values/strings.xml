@@ -16,4 +16,14 @@
     <string name="error">Error</string>
     <string name="searchStudents">filtering by group or last name</string>
     <string name="selectedItem">Selected item</string>
+
+    <string-array name="Faculties">
+        <item>ИИТ</item>
+        <item>ИИИ</item>
+        <item>ИКБ</item>
+        <item>ИПТИП</item>
+        <item>ИРИ</item>
+        <item>ИТУ</item>
+        <item>ИТХТ</item>
+    </string-array>
 </resources>

@@ -35,8 +35,10 @@
         app:layout_constraintTop_toBottomOf="@+id/nameNewGroupLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">>
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/facultyNew"
+            android:padding="12dp"
+            android:textSize="16sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>

@@ -1,10 +1,12 @@
 package com.hhh.studentsapp.ui.groupDetails
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -12,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.android.material.textfield.TextInputEditText
 import com.hhh.studentsapp.R
 import com.hhh.studentsapp.databinding.FragmentGroupDetailsBinding
@@ -29,9 +32,11 @@ class GroupDetailsFragment : Fragment() {
 
     lateinit var nameGroupDetails: TextInputEditText
     lateinit var countMembersDetails: TextInputEditText
-    lateinit var facultyDetails: TextInputEditText
+    lateinit var facultyDetails: MaterialAutoCompleteTextView
     lateinit var updateGroupBtn: Button
     lateinit var deleteGroupBtn: Button
+
+    private var faculties = mutableListOf<String>()
 
     private val viewModelGroups by viewModels<ListOfGroupsViewModel>()
     private val viewModelStudents by viewModels<ListOfStudentsViewModel>()
@@ -63,15 +68,32 @@ class GroupDetailsFragment : Fragment() {
             countMembersDetails.setText(it.toString())
         })
 
+        faculties = resources.getStringArray(R.array.Faculties).toMutableList()
+        val adapterFaculties = activity?.let {
+            ArrayAdapter(it, android.R.layout.simple_list_item_1, faculties)
+        }
+        facultyDetails.setAdapter(adapterFaculties)
+        facultyDetails.threshold = 1
+
         updateGroupBtn.setOnClickListener() {
-            viewModelGroups.update(group = Group(
-                id = group.id,
-                nameGroup = nameGroupDetails.text.toString().trim(),
-                countMembers = countMembersDetails.text.toString().toInt(),
-                faculty = facultyDetails.text.toString().trim()
-            ))
-            Toast.makeText(context, R.string.update, Toast.LENGTH_SHORT).show()
-            view.findNavController().navigate(R.id.action_groupDetailsFragment_to_listOfGroupsFragment)
+            val nameGr = nameGroupDetails.text.toString().trim()
+            val fac = facultyDetails.text.toString().trim()
+
+            if (checkValid(nameGr = nameGr, fac = fac)) {
+                viewModelGroups.update(
+                    group = Group(
+                        id = group.id,
+                        nameGroup = nameGr,
+                        countMembers = countMembersDetails.text.toString().toInt(),
+                        faculty = fac
+                    )
+                )
+                Toast.makeText(context, R.string.update, Toast.LENGTH_SHORT).show()
+                view.findNavController()
+                    .navigate(R.id.action_groupDetailsFragment_to_listOfGroupsFragment)
+            } else {
+                Toast.makeText(context, R.string.error, Toast.LENGTH_SHORT).show()
+            }
         }
 
         deleteGroupBtn.setOnClickListener() {
@@ -91,4 +113,24 @@ class GroupDetailsFragment : Fragment() {
         }
     }
 
+    private fun checkValid(nameGr: String, fac: String): Boolean {
+        var flag = true
+        if (!faculties.contains(fac)) {
+            facultyDetails.setHintTextColor(Color.RED)
+            facultyDetails.setBackgroundResource(R.color.errorBack)
+            flag = false
+        } else {
+            facultyDetails.setBackgroundColor(Color.WHITE)
+            facultyDetails.setHintTextColor(Color.BLACK)
+        }
+        if (nameGr == "") {
+            nameGroupDetails.setBackgroundResource(R.color.errorBack)
+            nameGroupDetails.setHintTextColor(Color.RED)
+            flag = false
+        } else {
+            nameGroupDetails.setBackgroundResource(R.color.white)
+            nameGroupDetails.setHintTextColor(Color.BLACK)
+        }
+        return flag
+    }
 }

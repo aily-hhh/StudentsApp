@@ -102,6 +102,7 @@
             android:id="@+id/groupForStudentDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:padding="12dp"
             android:inputType="textPersonName"/>
     </com.google.android.material.textfield.TextInputLayout>
